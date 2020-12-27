@@ -3,6 +3,7 @@ const path = require('path');
 const merge = require('webpack-merge').merge;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -71,7 +72,13 @@ const prodConfig = {
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].css?[contenthash]'
 		})
-	]
+	],
+	optimization: {
+		minimize: true,
+		minimizer: [
+			new CssMinimizerPlugin()
+		]
+	}
 };
 
 module.exports = isProduction
