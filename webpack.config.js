@@ -8,7 +8,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const isProduction = process.env.NODE_ENV === 'production';
 
 const config = {
-	entry: './src/messenger.js',
+	entry: './src/index.ts',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'js/[name].js?[contenthash]'
@@ -18,7 +18,11 @@ const config = {
 			{
 				test: /\.jsx?$/,
 				loader: 'babel-loader'
-			}
+			},
+			{
+				test: /\.tsx?$/,
+				use: ['babel-loader', 'ts-loader']
+			},
 		]
 	},
 	plugins: [
@@ -28,7 +32,7 @@ const config = {
 		})
 	],
 	resolve: {
-		extensions: ['.js', '.jsx']
+		extensions: ['.js', '.jsx', '.ts', '.tsx']
 	}
 };
 
