@@ -4,6 +4,7 @@ const merge = require('webpack-merge').merge;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -28,7 +29,12 @@ const config = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: './src/assets/index.html'
+			template: './src/index.html'
+		}),
+		new CopyPlugin({
+			patterns: [
+				{from: 'src/assets', to: ''}
+			]
 		})
 	],
 	resolve: {
