@@ -1,0 +1,16 @@
+.Navbar {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-between;
+	overflow: hidden;
+	user-select: none;
+}
+
+@media (max-width: 1024px) {
+
+	.Navbar {
+		flex-direction: row;
+	}
+
+}

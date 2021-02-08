@@ -42,7 +42,7 @@
   "scripts": {
     "clear": "rm -rf ./dist",
     "build": "clear && NODE_ENV=production webpack",
-    "start": "clear && NODE_ENV=development webpack serve",
+    "start": "NODE_ENV=development webpack serve",
     "test": "eslint --ext .jsx,.js,.tsx,.ts src/ --fix"
   },
   "pre-commit": [

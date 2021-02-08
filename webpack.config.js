@@ -29,11 +29,17 @@ const config = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: './src/index.html'
+			template: './src/static/index.html'
 		}),
 		new CopyPlugin({
 			patterns: [
-				{from: 'src/assets', to: ''}
+				{
+					from: 'src/static',
+					to: '',
+					globOptions: {
+						ignore: ['index.html']
+					}
+				}
 			]
 		})
 	],
@@ -61,6 +67,10 @@ const devConfig = {
 		compress: true,
 		port: 8080,
 		open: true,
+		host: '0.0.0.0',
+		historyApiFallback: {
+			index: 'index.html'
+		}
 	},
 };
 
@@ -71,7 +81,7 @@ const prodConfig = {
 			{
 				test: /\.css$/,
 				use: [
-					MiniCssExtractPlugin.loader, 
+					MiniCssExtractPlugin.loader,
 					'css-loader',
 					'postcss-loader'
 				]

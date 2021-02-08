@@ -1,0 +1,14 @@
+.Spinner {
+	animation: spinner-rotate .5s linear infinite;
+	border: 3px solid #aaa;
+	border-left-color: transparent;
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
+}
+
+@keyframes spinner-rotate {
+	to {
+		transform: rotate(359deg);
+	}
+}
