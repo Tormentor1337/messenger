@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+
+import Counter from './components/Counter/Counter';
 import Navbar from './components/Navbar/Navbar';
 import NavbarItem from './components/NavbarItem/NavbarItem';
 import Panel from './components/Panel/Panel';
@@ -8,16 +10,31 @@ import View from './components/View/View';
 
 import './style.css';
 
+const initPath = location.pathname.slice(1) || 'chats';
 
 function Messenger() {
-	const [activeView, setActiveView] = useState('messages');
+	const [activeView, setActiveView] = useState<string>(initPath);
+	const go = (path: string) => {
+		history.pushState({}, '', '/' + path);
+		setActiveView(path);
+	};
+
+	useEffect(() => {
+		window.addEventListener('popstate', () => {
+			setActiveView(location.pathname.slice(1));
+		});
+	}, []);
 
 	return (
 		<Root 
 			activeView={activeView}
 			navbar={
 				<Navbar>
-					<NavbarItem text="Новости">
+					<NavbarItem 
+						text="Новости"
+						active={activeView === 'news'}
+						onClick={() => go('news')}
+					>
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 28 28" id="newsfeed_28">
 							<path d="M19.98 3C22.2 3 24 4.8 24 7.02v13.96C24 23.2 22.2 25 19.98 25H8.02A4.02 4.02 0 014 20.98V7.02C4 4.8 5.8 3 8.02 3h11.96zm.01 2H8.01C6.9 5 6 5.9 6 7.01v13.98C6 22.1 6.9 23 8.01 23h11.98c1.11 0 2.01-.9 2.01-2.01V7.01C22 5.9 21.1 5 19.99 5zm-.995 6c.555 0 1.005.45 1.005 1.005v7.99C20 20.55 19.55 21 18.995 21h-9.99C8.45 21 8 20.55 8 19.995v-7.99C8 11.45 8.45 11 9.005 11h9.99zM15 7a1 1 0 110 2H9a1 1 0 010-2h6z" fill="currentColor" />
 						</svg>
@@ -25,7 +42,7 @@ function Messenger() {
 					<NavbarItem 
 						text="Друзья"
 						active={activeView === 'friends'}
-						onClick={() => setActiveView('friends')}
+						onClick={() => go('friends')}
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" id="users_outline_28">
 							<g fill="none" fillRule="evenodd">
@@ -36,8 +53,9 @@ function Messenger() {
 					</NavbarItem>
 					<NavbarItem 
 						text="Сообщения" 
-						active={activeView === 'messages'}
-						onClick={() => setActiveView('messages')}
+						active={activeView === 'chats'}
+						counter={<Counter>{'3'}</Counter>}
+						onClick={() => go('chats')}
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" id="messages_28">
 							<g fill="none" fillRule="evenodd">
@@ -46,7 +64,11 @@ function Messenger() {
 							</g>
 						</svg>
 					</NavbarItem>
-					<NavbarItem text="Профиль">
+					<NavbarItem 
+						text="Профиль"
+						active={activeView === 'profile'}
+						onClick={() => go('profile')}
+					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" id="user_circle_outline_28">
 							<g fill="none" fillRule="evenodd">
 								<path d="M0 0h28v28H0z" />
@@ -54,7 +76,11 @@ function Messenger() {
 							</g>
 						</svg>
 					</NavbarItem>
-					<NavbarItem text="Настройки">
+					<NavbarItem 
+						text="Настройки"
+						active={activeView === 'settings'}
+						onClick={() => go('settings')}
+					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" id="settings_outline_28">
 							<g fillRule="nonzero" fill="none">
 								<path d="M0 0h28v28H0z"/>
@@ -65,14 +91,29 @@ function Messenger() {
 				</Navbar>
 			}
 		>
+			<View id="news">
+				<Panel>
+					<div>news</div>
+				</Panel>
+			</View>
 			<View id="friends">
 				<Panel>
 					<div>friends</div>
 				</Panel>
 			</View>
-			<View id="messages">
+			<View id="chats">
+				<Panel title="Сообщения" >
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti sit ratione libero nesciunt aliquam fugit vero nihil, molestias earum culpa doloremque consequuntur asperiores corporis porro maxime accusantium? Ipsum sequi ratione tempore impedit sunt tenetur porro? Cum aspernatur, ducimus qui, ex facilis sit voluptatum modi voluptatibus quasi nam officia incidunt id recusandae repellat optio explicabo harum ipsum, natus delectus accusantium ut. Corrupti neque dolores facilis laborum accusamus amet sint dignissimos excepturi sunt soluta odit ab, accusantium aspernatur asperiores architecto quod, ut optio aliquid! Pariatur non iure modi aliquam in provident. Nihil amet in incidunt! Delectus voluptatibus, minus reprehenderit ipsam voluptate, ea sapiente molestiae quasi debitis laboriosam adipisci dolores fuga esse excepturi corporis aliquam dignissimos praesentium quibusdam voluptatem amet eveniet unde in. Deleniti nemo delectus illum sed amet dolor facilis debitis odio quod quam quae aut alias repellat qui blanditiis, ab, magni voluptatibus dolorum deserunt eius. Inventore, repudiandae incidunt. Voluptas doloremque amet odit, excepturi earum temporibus dolore sapiente quasi! Saepe molestiae placeat eius, nulla vel reiciendis rem distinctio voluptatibus doloremque eum neque quae sint ad provident libero inventore quibusdam nemo rerum numquam laboriosam! Ipsa repellendus molestias neque, eaque id atque velit quia modi animi cumque voluptatem quaerat illo aliquid in maiores laborum consequuntur esse ratione explicabo sed similique? Fugiat voluptatem totam quidem quo ducimus quam dolorem eveniet dolores mollitia alias magnam et nam recusandae voluptas ratione dolorum quisquam architecto voluptatum rerum, molestiae sunt laudantium laboriosam laborum. Ad, sed architecto? Quidem esse autem reiciendis accusamus blanditiis illum assumenda iusto neque illo nulla deserunt voluptas ut quisquam cum officiis perferendis ipsa facilis suscipit corrupti libero animi, aliquid, ipsam ducimus vitae. Expedita eligendi perferendis unde qui commodi quaerat culpa minima. Dolorem doloremque adipisci voluptas eum praesentium, possimus voluptatum aliquam optio ipsum aperiam id, vero eligendi suscipit cum alias odio assumenda soluta sequi odit quis ipsam excepturi. Reiciendis debitis autem eveniet nihil dolor minima officia assumenda, dolorum ipsam placeat distinctio repellendus veritatis nesciunt eligendi harum iure magni. Veniam repellat eos vel minus adipisci, quibusdam beatae earum quod numquam ratione, atque voluptas assumenda, accusamus non cupiditate soluta doloribus dolorum est esse modi! A earum cumque recusandae deleniti nihil est iusto iure beatae debitis nemo eum, dolores, quam provident nesciunt, quisquam ipsam saepe dolore obcaecati aliquam blanditiis aliquid excepturi. Necessitatibus odit accusamus maiores, beatae aperiam dolorum amet, deserunt rem repellendus mollitia, et velit numquam quidem eaque doloremque assumenda quaerat dignissimos delectus corporis nulla maxime praesentium? Iusto et asperiores, quidem atque est nihil expedita optio natus, facere molestiae, quasi excepturi quis? Vero in quod praesentium a veniam amet alias eos provident neque reiciendis, repudiandae sunt commodi earum autem id dignissimos nostrum quam libero fugit totam debitis maxime. Asperiores soluta facilis architecto eveniet similique perferendis aut quasi adipisci vel expedita, qui fugit delectus! Vel est placeat voluptatum quisquam. Obcaecati temporibus quaerat eligendi eius veniam quod consequuntur adipisci reprehenderit quis itaque? Dolorum inventore modi rerum facere labore itaque repellendus recusandae ipsam impedit dignissimos deleniti officia doloremque vitae maiores similique nostrum porro voluptate laboriosam, laudantium soluta hic eum. Quam voluptatem placeat libero!
+				</Panel>
+			</View>
+			<View id="profile">
 				<Panel>
-					<div>messages</div>
+					<div>profile</div>
+				</Panel>
+			</View>
+			<View id="settings">
+				<Panel>
+					<div>settings</div>
 				</Panel>
 			</View>
 		</Root>

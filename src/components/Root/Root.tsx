@@ -34,11 +34,6 @@ export default function Root(props: RootProps): JSX.Element {
 			{...restProps}
 			className={classnames('Root', className)} 
 		>
-			<div className="Root__navbar">
-				<div className="Root__navbar-in">
-					{navbar}
-				</div>
-			</div>
 			<div className="Root__content" >
 				{loaded.map((view) => {
 					const isActive = view.props.id === activeView;
@@ -53,6 +48,11 @@ export default function Root(props: RootProps): JSX.Element {
 						</div>
 					);
 				})}
+			</div>
+			<div className="Root__navbar">
+				<div className="Root__navbar-in">
+					{navbar}
+				</div>
 			</div>
 		</div>
 	);

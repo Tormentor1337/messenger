@@ -16,19 +16,22 @@
 @media (max-width: 1024px) {
 
 	.Root {
-		flex-direction: column-reverse;
+		flex-direction: column;
 	}
 
 	.Root__navbar {
-		box-shadow: inset 0 1px 0 #eee;
 		flex-shrink: 0;
 		height: var(--navbar-height);
 		width: 100%;
 	}
 
 	.Root__navbar-in {
+		background-color: #fff;
+		bottom: 0;
+		box-shadow: inset 0 1px 0 #eee;
 		position: fixed;
 		width: 100%;
+		z-index: 1;
 	}
 
 	.Root__content {

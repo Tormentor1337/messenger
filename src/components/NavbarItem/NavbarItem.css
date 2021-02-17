@@ -5,12 +5,19 @@
 
 .NavbarItem__icon {
 	height: 28px;
+	position: relative;
 	width: 28px;
 }
 
 .NavbarItem__icon svg {
 	height: 100%;
 	width: 100%;
+}
+
+.NavbarItem__counter {
+	position: absolute;
+	right: -4px;
+	top: -4px;	
 }
 
 .NavbarItem__text {
@@ -55,6 +62,6 @@
 	
 	.NavbarItem__text {
 		font-size: 10px;
-		font-weight: bold;
+		font-weight: 700;
 	}
 }

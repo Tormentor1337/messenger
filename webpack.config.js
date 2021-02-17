@@ -31,17 +31,20 @@ const config = {
 			filename: 'index.html',
 			template: './src/static/index.html'
 		}),
-		new CopyPlugin({
-			patterns: [
-				{
-					from: 'src/static',
-					to: '',
-					globOptions: {
-						ignore: ['index.html']
-					}
-				}
-			]
-		})
+		// new CopyPlugin({
+		// 	patterns: [
+		// 		{
+		// 			from: 'src/static',
+		// 			to: '',
+		// 			globOptions: {
+		// 				ignore: ['**/index.html']
+		// 			}
+		// 		}
+		// 	],
+		// 	options: {
+		// 		concurrency: 100,
+		// 	},
+		// })
 	],
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx']

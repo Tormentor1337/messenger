@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
+import classnames from 'classnames';
 
 import './Spinner.css';
 
-export default function Spinner(): JSX.Element {
-	return <div className="Spinner" />;
+export interface SpinnerProps extends HTMLAttributes<HTMLDivElement> {
+	className?: string;
+}
+
+export default function Spinner(props: SpinnerProps): JSX.Element {
+	const {className, ...restProps} = props;
+
+	return (
+		<div 
+			{...restProps}
+			className={classnames('Spinner', className)} 
+		/>
+	);
 }
